@@ -1,0 +1,254 @@
+//variables
+
+//fonts
+$ff-primary: 'Overpass', sans-serif;
+
+//colors
+$orange: hsl(25, 97%, 53%);
+$white: hsl(0, 0%, 100%);
+$light-grey: hsl(217, 12%, 63%);
+$dark-blue: hsl(213, 19%, 18%);
+$very-dark-blue: hsl(216, 12%, 8%);
+
+//font-weights
+$fw-regular: 400;
+$fw-bold: 700;
+
+//font-sizes
+$fs-xs: 0.875rem;
+$fs-s: 1rem;
+$fs-m: 1.5rem;
+$fs-l: 1.75rem;
+
+//padding
+$padding-primary: 2rem;
+$padding-secondary: 1.5rem;
+
+
+//mixins
+@mixin container($max-width: 1440px, $margin: 0, $padding: 0, $border-radius: 0) {
+    max-width: $max-width;
+    width: 100%;
+    margin: $margin;
+    padding: $padding;
+    border-radius: $border-radius;
+    background: var(--black-gradient, radial-gradient(98.96% 98.96% at 50% 0%, #232A34 0%, #181E27 100%));
+}
+
+@mixin flex($flex-direction: row, $justify-content: center, $align-items: center, $gap: 0) {
+    display: flex;
+    flex-direction: $flex-direction;
+    justify-content: $justify-content;
+    align-items: $align-items;
+    gap: $gap;
+}
+
+@mixin text($color: $white, $font-size: $fs-s, $font-weight: $fw-regular, $line-height: normal, $letter-spacing: normal) {
+    color: $color;
+    font-size: $font-size;
+    font-weight: $font-weight;
+    line-height: $line-height;
+    font-family: $ff-primary;
+    letter-spacing: $letter-spacing;
+}
+
+@mixin button($padding: 0.85rem 8.5625rem, $border-radius: 22.5px, $font-size: $fs-s, $letter-spacing: 2px, $background-color: $orange, $color: $white) {
+    padding: $padding;
+    color: $color;
+    border: none;
+    border-radius: $border-radius;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: $ff-primary;
+    font-size: $font-size;
+    font-weight: $fw-bold;
+    letter-spacing: $letter-spacing;
+    text-transform: uppercase; 
+    background-color: $background-color;
+}
+
+
+
+//reset
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+/* Set core body defaults */
+body {
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+//utility classes
+
+body {
+    background-color: $very-dark-blue;
+    @include flex($justify-content: center, $align-items: center);
+}
+
+.rating-component {
+    @include container($max-width: 412px, $padding: $padding-primary, $border-radius: 30px);
+    @include flex($flex-direction: column, $justify-content: center, $align-items: flex-start, $gap: 1rem); 
+}
+
+#rating-component.active {
+    display: none;
+}
+
+.rating-component h1, .thanks-container h1 {
+    @include text($font-size: $fs-l, $font-weight: $fw-bold); 
+}
+
+.rating-component p {
+    @include text($font-size: $fs-s, $font-weight: $fw-regular, $color: $light-grey, $line-height: 24px);
+}
+
+.rating-container {
+  @include flex($justify-content: center, $align-items: center, $gap: 1rem);
+  width: 100%;
+  gap: 10px;
+  
+}
+
+.rating-container input[type="radio"] {
+  display: none;
+}
+
+.rating-container label {
+  @include flex($justify-content: center, $align-items: center);
+  width: 48px;
+  height: 48px;
+  background-color: $dark-blue;
+  border-radius: 100%;
+  cursor: pointer;
+  user-select: none;
+  @include text($font-size: $fs-s, $color: $light-grey);
+}
+
+.rating-container input[type="radio"]:checked + label {
+  background-color: $orange;
+  color: white;
+}
+
+.rating-container label:hover {
+  background-color: $white;
+  color: $dark-blue;
+}
+
+.submit-btn {
+    @include button;
+    @include flex($justify-content: center, $align-items: center);
+    margin-top: 1rem;
+}
+
+.star-bg {
+    width: 48px;
+    height: 48px;
+    border-radius: 100px;
+    background-color: $very-dark-blue;
+    @include flex($justify-content: center, $align-items: center);
+}
+
+.thanks-container {
+  @include container($max-width: 412px, $padding: $padding-primary, $border-radius: 30px);
+  @include flex($flex-direction: column, $justify-content: center, $align-items: center, $gap: 2rem);
+  display: none;
+}
+
+#thanks-container.active {
+  display: flex; // Use flex to maintain flexbox properties
+}
+
+.rating {
+  @include container($max-width: 265px, $padding: 0.5rem 1.25rem, $border-radius: 22.5px, $margin: 0 auto);
+  @include flex($justify-content: center, $align-items: center);
+  @include text($font-size: $fs-xs, $color: $orange);
+}
+
+.thankyou-message {
+  @include text($font-size: $fs-s, $color: $light-grey, $line-height: 24px);
+  text-align: center;
+}
+
+
+
+//media queries
+@media screen and (max-width: 375px) {
+    body {
+        padding: 1rem;
+    }
+    .rating-component {
+        padding: $padding-secondary;
+    }
+    .rating-component h1 {
+        font-size: $fs-m;
+    }
+    .rating-component p {
+        font-size: $fs-xs;
+    }
+    .rating-buttons button {
+        width: 40px;
+        height: 40px;
+    }
+    .submit-btn {
+        padding: 0.75rem 6.25rem;
+        
+    }       
+}
